@@ -48,4 +48,8 @@ oc get secret $clustername-import -n $clustername -o jsonpath={.data.import\\.ya
 # Run this from the managed-clusters
 oc apply -f klusterlet-crd.yaml
 oc apply -f import.yaml
+oc get pods -n open-cluster-management-agent
+oc get pods -n open-cluster-management-agent-addon
+
+# Run from ACM hub cluster
 oc get managedcluster $clustername
