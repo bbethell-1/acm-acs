@@ -1,6 +1,5 @@
-#!/bin/bash
+# Run this from the ACM cluster (2.6 instructions)
 
-# This must be run on the hub cluster
 clustername=prod01
 
 # Create project for the managed cluster
@@ -22,10 +21,7 @@ EOF
 
 oc apply -f managed-cluster-$clustername.yaml
 
-oc get secret ${CLUSTER_NAME}-import -n ${CLUSTER_NAME} -o jsonpath={.data.crds\\.yaml} | base64 --decode > klusterlet-crd.yaml
-oc get secret ${CLUSTER_NAME}-import -n ${CLUSTER_NAME} -o jsonpath={.data.import\\.yaml} | base64 --decode > import.yaml
-
-cat << EOF > klusterlet-addon-config.yaml
+echo << EOF > klusterlet-addon-config.yaml
 apiVersion: agent.open-cluster-management.io/v1
 kind: KlusterletAddonConfig
 metadata:
@@ -42,7 +38,14 @@ spec:
     enabled: true
   searchCollector:
     enabled: true
-  EOF
-  oc apply -f klusterlet-addon-config.yaml
-  oc get pod -n open-cluster-management-agent-addon
-    
+EOF
+oc apply -f klusterlet-addon-config.yaml
+oc get pod -n open-cluster-management-agent-addon
+  
+oc get secret ${CLUSTER_NAME}-import -n ${CLUSTER_NAME} -o jsonpath={.data.crds\\.yaml} | base64 --decode > klusterlet-crd.yaml
+oc get secret ${CLUSTER_NAME}-import -n ${CLUSTER_NAME} -o jsonpath={.data.import\\.yaml} | base64 --decode > import.yaml
+
+# Run this from the managed-clusters
+oc apply -f klusterlet-crd.yaml
+oc apply -f import.yaml
+oc get managedcluster ${CLUSTER_NAME}
