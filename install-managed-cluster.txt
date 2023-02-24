@@ -48,4 +48,4 @@ oc get secret $clustername-import -n $clustername -o jsonpath={.data.import\\.ya
 # Run this from the managed-clusters
 oc apply -f klusterlet-crd.yaml
 oc apply -f import.yaml
-oc get managedcluster ${CLUSTER_NAME}
+oc get managedcluster $clustername
