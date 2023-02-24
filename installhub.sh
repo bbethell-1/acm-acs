@@ -21,7 +21,8 @@ metadata:
 spec:
   sourceNamespace: openshift-marketplace
   source: redhat-operators
-  channel: release-2.7
+  #channel: release-2.7
+  channel: release-2.6
   installPlanApproval: Automatic
   name: advanced-cluster-management
 EOF
