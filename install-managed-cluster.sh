@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This must be run on the hub cluster
-clustername=martincluster
+clustername=prod01
 
 # Create project for the managed cluster
 # The double command will ensure the command will exit 0
