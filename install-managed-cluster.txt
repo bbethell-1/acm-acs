@@ -21,7 +21,7 @@ EOF
 
 oc apply -f managed-cluster-$clustername.yaml
 
-echo << EOF > klusterlet-addon-config.yaml
+cat << EOF > klusterlet-addon-config.yaml
 apiVersion: agent.open-cluster-management.io/v1
 kind: KlusterletAddonConfig
 metadata:
