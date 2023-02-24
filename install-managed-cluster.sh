@@ -8,7 +8,7 @@ clustername=prod01
 oc new-project $clustername || oc project $clustername
 
 # Create the yaml. NOTE: it is no longer necessary to label the namespace
-echo << EOF > managed-cluster-$clustername.yaml
+cat << EOF > managed-cluster-$clustername.yaml
 apiVersion: cluster.open-cluster-management.io/v1
 kind: ManagedCluster
 metadata:
@@ -25,7 +25,7 @@ oc apply -f managed-cluster-$clustername.yaml
 oc get secret ${CLUSTER_NAME}-import -n ${CLUSTER_NAME} -o jsonpath={.data.crds\\.yaml} | base64 --decode > klusterlet-crd.yaml
 oc get secret ${CLUSTER_NAME}-import -n ${CLUSTER_NAME} -o jsonpath={.data.import\\.yaml} | base64 --decode > import.yaml
 
-echo << EOF > klusterlet-addon-config.yaml
+cat << EOF > klusterlet-addon-config.yaml
 apiVersion: agent.open-cluster-management.io/v1
 kind: KlusterletAddonConfig
 metadata:
