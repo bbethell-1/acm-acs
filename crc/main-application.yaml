@@ -1,7 +1,7 @@
 apiVersion: app.k8s.io/v1beta1
 kind: Application
 metadata:
-  name: martin
+  name: main-policy
   namespace: acm-policies
 spec:
   componentKinds:
@@ -13,7 +13,7 @@ spec:
       - key: app
         operator: In
         values: 
-          - martin
+          - main-policy
 ---
 apiVersion: v1
 kind: Namespace
@@ -39,22 +39,22 @@ metadata:
     apps.open-cluster-management.io/git-path: crc
     apps.open-cluster-management.io/reconcile-option: merge
   labels:
-    app: martin
-  name: martin-subscription-1
+    app: main-policy
+  name: main-policy-subscription-1
   namespace: acm-policies
 spec:
   channel: ggithubcom-mmwillingham-acm-acs-ns/ggithubcom-mmwillingham-acm-acs
   placement:
     placementRef:
       kind: Placement
-      name: martin-placement-1
+      name: main-policy-placement-1
 ---
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
 metadata:
   labels:
-    app: martin
-  name: martin-placement-1
+    app: main-policy
+  name: main-policy-placement-1
   namespace: acm-policies
 spec:
   predicates:
