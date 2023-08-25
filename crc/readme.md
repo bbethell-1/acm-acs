@@ -1,3 +1,4 @@
+# Prereqs to be run from CLI
 ## To install ACM on hub cluster
 ## (Check version of ACM in subscription within the file installhub.sh)
 ```bash
@@ -18,6 +19,7 @@ clusterset-label-hub-local-cluster.sh
 oc apply -f patch-subscription-admin.yaml
 ```
 
+# Now create the application
 ## Create ACM application to run policies
 ```bash
 oc apply -f main-policy.yaml
