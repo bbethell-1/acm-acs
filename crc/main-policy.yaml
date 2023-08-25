@@ -1,18 +1,22 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: acm-policies
+---
 apiVersion: app.k8s.io/v1beta1
 kind: Application
 metadata:
   name: main-policy
-  namespace: acm-policies
 spec:
   componentKinds:
-  - group: apps.open-cluster-management.io
-    kind: Subscription
+    - group: apps.open-cluster-management.io
+      kind: Subscription
   descriptor: {}
   selector:
     matchExpressions:
-      - key: app
+      - key: app  
         operator: In
-        values: 
+        values:
           - main-policy
 ---
 apiVersion: apps.open-cluster-management.io/v1
@@ -20,11 +24,10 @@ kind: Channel
 metadata:
   annotations:
     apps.open-cluster-management.io/reconcile-rate: medium
-  name: ggithubcom-mmwillingham-acm-acs
-  namespace: ggithubcom-mmwillingham-acm-acs-ns
+  name: main-policy
 spec:
-  pathname: https://github.com/mmwillingham/acm-acs.git
   type: Git
+  pathname: "https://github.com/mmwillingham/acm-acs.git"
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: Subscription
@@ -35,36 +38,28 @@ metadata:
     apps.open-cluster-management.io/reconcile-option: merge
   labels:
     app: main-policy
-  name: main-policy-subscription-1
-  namespace: acm-policies
+  name: main-policy-subscription
 spec:
-  channel: ggithubcom-mmwillingham-acm-acs-ns/ggithubcom-mmwillingham-acm-acs
+  allow:
+    - apiVersion: policy.open-cluster-management.io/v1
+      kinds:
+        - "*"
+    - apiVersion: apps.open-cluster-management.io/v1
+      kinds:
+        - PlacementRule
+  channel: main-policy/main-policy
   placement:
     placementRef:
       kind: PlacementRule
-      name: main-policy-placement-1
----
-#apiVersion: cluster.open-cluster-management.io/v1beta1
-#kind: Placement
-#metadata:
-#  labels:
-#    app: main-policy
-#  name: main-policy-placement-1
-#  namespace: acm-policies
-#spec:
-#  predicates:
-#    - requiredClusterSelector:
-#        labelSelector:
-#          matchExpressions:
-#  clusterSets:
-#    - hub
+      name: main-policy-placement
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
-  name: main-policy-placement-1
-  namespace: acm-policies
+  labels:
+    app: main-policy
+  name: main-policy-placement
 spec:
   clusterSelector:
     matchLabels:
-      'local-cluster': 'true'
+      "local-cluster": "true"
