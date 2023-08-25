@@ -1,5 +1,5 @@
 ## To install ACM on hub cluster
-### Check version of ACM in subscription
+## (Check version of ACM in subscription within the file installhub.sh)
 ```bash
 installhub.sh
 ```
