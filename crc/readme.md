@@ -4,7 +4,9 @@
 installhub.sh
 ```
 ## Create clusterset for hub
-TBD
+```bash
+create-clusterset-hub.yaml
+```
 
 ## Assign new clusterset to hub cluster
 ```bash
