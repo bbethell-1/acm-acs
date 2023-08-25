@@ -1,3 +1,8 @@
+## To install ACM on hub cluster
+```bash
+installhub.sh
+```
+
 ## Add kubeadmin (and other desired users) to subscription-admin cluster-role-binding
 ```bash
 oc apply -f patch-subscription-admin.yaml
