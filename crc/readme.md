@@ -20,6 +20,12 @@ oc apply -f patch-subscription-admin.yaml
 ```
 
 # Now create the application
+
+## Create acm-policies namespace
+```
+oc new-project acm-policies
+```
+
 ## Create ACM application to run policies
 ```bash
 oc apply -f main-policy.yaml
