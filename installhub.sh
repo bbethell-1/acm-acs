@@ -57,10 +57,10 @@ i=1
 until [ "$operator_status" = "$expected_condition" ]
 do
   ((i++))
-  # acm v2.7: 
-  #operator_status=$(oc get csv -n open-cluster-management | grep advanced-cluster-management | awk '{print $8}')
+  # acm v2.7 and 2.8: 
+  operator_status=$(oc get csv -n open-cluster-management | grep advanced-cluster-management | awk '{print $8}')
   # acm v2.6
-  operator_status=$(oc get csv | grep advanced-cluster-management | awk '{print $9}')
+  #operator_status=$(oc get csv | grep advanced-cluster-management | awk '{print $9}')
   oc get csv | grep advanced-cluster-management
 
   if [ "${i}" -gt "${timeout}" ]; then
