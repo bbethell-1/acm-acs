@@ -2,6 +2,8 @@
 ```bash
 installhub.sh
 ```
+## Create clusterset for hub
+TBD
 
 ## Add kubeadmin (and other desired users) to subscription-admin cluster-role-binding
 ```bash
