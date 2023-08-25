@@ -6,12 +6,12 @@ installhub.sh
 ```
 ## Create clusterset for hub
 ```bash
-create-clusterset-hub.yaml
+oc apply -f create-clusterset-hub.yaml
 ```
 
 ## Assign new clusterset to hub cluster
 ```bash
-clusterset-label-hub-local-cluster.sh
+. ./clusterset-label-hub-local-cluster.sh
 ```
 
 ## Add kubeadmin (and other desired users) to subscription-admin cluster-role-binding
