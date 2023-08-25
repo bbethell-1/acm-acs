@@ -16,7 +16,7 @@ spec:
         metadata:
           name: policy-namespace
         spec:
-          remediationAction: inform
+          remediationAction: enforce
           severity: low
           namespaceSelector:
             exclude:
