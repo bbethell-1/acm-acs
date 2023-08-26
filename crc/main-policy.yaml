@@ -74,5 +74,9 @@ spec:
     - requiredClusterSelector:
         labelSelector:
           matchExpressions:
-  clusterSets:
-    - hub
+            - key: local-host
+              operator: In
+              values:
+              - 'true'
+#  clusterSets:
+#    - hub
