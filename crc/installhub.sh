@@ -48,7 +48,7 @@ oc apply -f subscription.yaml
 # oc patch installplan install-4k2q8 --type merge --patch '{"spec":{"approved":true}}'
 
 # Check if it's ready
-#oc get csv |grep advanced-cluster-management | grep Succeeded
+#oc get csv | grep advanced-cluster-management -n open-cluster-management | grep Succeeded
 
 echo "Waiting until ACM Operator is ready (Succeeded)..."
 expected_condition="Succeeded"
@@ -58,10 +58,10 @@ until [ "$operator_status" = "$expected_condition" ]
 do
   ((i++))
   # acm v2.7 and v2.8: 
-  operator_status=$(oc get csv | grep advanced-cluster-management | awk '{print $8}')
+  operator_status=$(oc get csv | grep advanced-cluster-management -n open-cluster-management | awk '{print $8}')
   # acm v2.6
-  # operator_status=$(oc get csv | grep advanced-cluster-management | awk '{print $9}')
-  oc get csv | grep advanced-cluster-management
+  # operator_status=$(oc get csv | grep advanced-cluster-management -n open-cluster-management | awk '{print $9}')
+  oc get csv | grep advanced-cluster-management -n open-cluster-management
 
   if [ "${i}" -gt "${timeout}" ]; then
       echo "Sorry it took too long"
