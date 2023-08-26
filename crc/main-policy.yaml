@@ -3,9 +3,6 @@ kind: Application
 metadata:
   name: main-policy
   namespace: acm-policies
-  annotations:
-    apps.open-cluster-management.io/deployables: ''
-    apps.open-cluster-management.io/subscriptions: acm-policies/main-policy-subscription-1,acm-policies/main-policy-subscription-1-local
 spec:
   componentKinds:
     - group: apps.open-cluster-management.io
