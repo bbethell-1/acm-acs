@@ -3,6 +3,13 @@ kind: Application
 metadata:
   name: main-policy
   namespace: acm-policies
+  annotations:
+    apps.open-cluster-management.io/deployables: ''
+    apps.open-cluster-management.io/subscriptions: acm-policies/main-policy-subscription-1
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"app.k8s.io/v1beta1","kind":"Application","metadata":{"annotations":{},"name":"main-policy","namespace":"acm-policies"},"spec":{"componentKinds":[{"group":"apps.open-cluster-management.io","kind":"Subscription"}],"descriptor":{},"selector":{"matchExpressions":[{"key":"app","operator":"In","values":["main-policy"]}]}}}
+    open-cluster-management.io/user-group: c3lzdGVtOmF1dGhlbnRpY2F0ZWQ6b2F1dGgsc3lzdGVtOmF1dGhlbnRpY2F0ZWQ=
+    open-cluster-management.io/user-identity: a3ViZWFkbWlu
 spec:
   componentKinds:
     - group: apps.open-cluster-management.io
@@ -14,6 +21,23 @@ spec:
         operator: In
         values:
           - main-policy
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ggithubcom-mmwillingham-acm-acs-ns
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  name: ggithubcom-mmwillingham-acm-acs
+  namespace: ggithubcom-mmwillingham-acm-acs-ns
+  annotations:
+    apps.open-cluster-management.io/reconcile-rate: medium
+  selfLink:
+spec:
+  type: Git
+  pathname: https://github.com/mmwillingham/acm-acs.git
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: Subscription
@@ -32,7 +56,7 @@ spec:
   channel: ggithubcom-mmwillingham-acm-acs-ns/ggithubcom-mmwillingham-acm-acs
   placement:
     placementRef:
-      name: main-policy-placement
+      name: main-policy-placement-3
       kind: Placement
 posthooks: {}
 prehooks: {}
@@ -40,7 +64,7 @@ prehooks: {}
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
 metadata:
-  name: main-policy-placement
+  name: main-policy-placement-3
   namespace: acm-policies
   labels:
     app: main-policy
@@ -52,5 +76,3 @@ spec:
           matchExpressions:
   clusterSets:
     - hub
-
-
