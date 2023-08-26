@@ -21,7 +21,6 @@ metadata:
   name: main-policy-subscription-1
   namespace: acm-policies
   annotations:
-    apps.open-cluster-management.io/cluster-admin: 'true'
     apps.open-cluster-management.io/git-branch: main
     apps.open-cluster-management.io/git-path: crc
     apps.open-cluster-management.io/reconcile-option: merge
@@ -30,23 +29,28 @@ metadata:
     app.kubernetes.io/part-of: main-policy
     apps.open-cluster-management.io/reconcile-rate: medium
 spec:
-  channel: acm-policies/main-policy
+  channel: ggithubcom-mmwillingham-acm-acs-ns/ggithubcom-mmwillingham-acm-acs
   placement:
     placementRef:
       name: main-policy-placement
-      kind: PlacementRule
+      kind: Placement
 posthooks: {}
 prehooks: {}
 ---
-apiVersion: apps.open-cluster-management.io/v1
-kind: PlacementRule
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
 metadata:
   name: main-policy-placement
   namespace: acm-policies
-  annotations:
   labels:
     app: main-policy
+  selfLink:
 spec:
-  clusterSelector:
-    matchLabels:
-      local-cluster: 'true'
+  predicates:
+    - requiredClusterSelector:
+        labelSelector:
+          matchExpressions:
+  clusterSets:
+    - hub
+
+
