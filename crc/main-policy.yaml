@@ -57,12 +57,16 @@ spec:
   placement:
     placementRef:
       name: main-policy-placement
-      kind: Placement
+      #kind: Placement
+      kind: PlacementRule
 posthooks: {}
 prehooks: {}
 ---
-apiVersion: cluster.open-cluster-management.io/v1beta1
-kind: Placement
+# Trying PlacementRule instead of Placement
+#apiVersion: cluster.open-cluster-management.io/v1beta1
+apiVersion: apps.open-cluster-management.io/v1
+#kind: Placement
+kind: PlacementRule
 metadata:
   name: main-policy-placement
   namespace: acm-policies
@@ -82,3 +86,16 @@ spec:
               - OpenShift
 #  clusterSets:
 #    - hub
+#
+# Trying PlacementRule instead of Placement
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  labels:
+    app: main-policy
+  name: main-policy-placement
+  namespace: acm-policies
+spec:
+  clusterSelector:
+    matchLabels:
+      'local-cluster': 'true'
