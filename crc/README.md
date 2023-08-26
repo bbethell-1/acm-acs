@@ -2,6 +2,7 @@
 ## To install ACM on hub cluster
 ## (Check version of ACM in subscription within the file installhub.sh)
 ```bash
+cd crc
 . ./installhub.sh
 ```
 ## Create clusterset for hub

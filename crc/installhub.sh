@@ -22,7 +22,7 @@ spec:
   sourceNamespace: openshift-marketplace
   source: redhat-operators
   #channel: release-2.7
-  channel: release-2.6
+  channel: release-2.8
   installPlanApproval: Automatic
   name: advanced-cluster-management
 EOF
@@ -57,10 +57,10 @@ i=1
 until [ "$operator_status" = "$expected_condition" ]
 do
   ((i++))
-  # acm v2.7: 
-  #operator_status=$(oc get csv | grep advanced-cluster-management | awk '{print $8}')
+  # acm v2.7 and v2.8: 
+  operator_status=$(oc get csv | grep advanced-cluster-management | awk '{print $8}')
   # acm v2.6
-  operator_status=$(oc get csv | grep advanced-cluster-management | awk '{print $9}')
+  # operator_status=$(oc get csv | grep advanced-cluster-management | awk '{print $9}')
   oc get csv | grep advanced-cluster-management
 
   if [ "${i}" -gt "${timeout}" ]; then
