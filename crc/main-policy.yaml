@@ -74,7 +74,7 @@ spec:
     - requiredClusterSelector:
         labelSelector:
           matchLabels:
-            local-cluster: true
+            local-cluster: 'true'
 #          matchExpressions:
 #            - key: local-cluster
 #              operator: In
