@@ -73,12 +73,12 @@ spec:
   predicates:
     - requiredClusterSelector:
         labelSelector:
-          matchLabels:
-            name: local-cluster
-#          matchExpressions:
-#            - key: local-cluster
-#              operator: In
-#              values:
-#              - 'true'
-  clusterSets:
-    - hub
+#          matchLabels:
+#            name: local-cluster
+          matchExpressions:
+            - key: vendor
+              operator: In
+              values:
+              - OpenShift
+#  clusterSets:
+#    - hub
