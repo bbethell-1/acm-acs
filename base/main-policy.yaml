@@ -83,26 +83,47 @@ prehooks: {}
 #              - OpenShift
 ##  clusterSets:
 ##    - hub
+
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-main-policy-role
+placementRef:
+  name: main-policy-placement
+  kind: Placement
+  apiGroup: cluster.open-cluster-management.io
+subjects:
+- name: policy-role
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+---
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
 metadata:
   name: main-policy-placement
-  namespace: acm-policies
 spec:
-  numberOfClusters: 1
-  clusterSets:
-    - hub
   predicates:
-    - requiredClusterSelector:
-        labelSelector:
-          matchLabels:
-            name: local-cluster
-#        claimSelector:
-#          matchExpressions:
-#            - key: platform.open-cluster-management.io
-#              operator: In
-#              values:
-#                - aws
+  - requiredClusterSelector:
+      labelSelector:
+        matchExpressions:
+          - {key: name, operator: In, values: ["local-cluster"]}
+
+
+
+#apiVersion: cluster.open-cluster-management.io/v1beta1
+#kind: Placement
+#metadata:
+#  name: main-policy-placement
+#  namespace: acm-policies
+#spec:
+#  numberOfClusters: 1
+#  clusterSets:
+#    - hub
+#  predicates:
+#    - requiredClusterSelector:
+#        labelSelector:
+#          matchLabels:
+#            name: local-cluster
 #
 # Trying PlacementRule instead of Placement - this works for main, but not when adding policyGenerator
 #apiVersion: apps.open-cluster-management.io/v1
