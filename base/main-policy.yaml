@@ -57,13 +57,12 @@ spec:
   placement:
     placementRef:
       name: main-policy-placement
-      #name: placement-default
       kind: Placement
       #kind: PlacementRule
 posthooks: {}
 prehooks: {}
 ---
-# Trying PlacementRule instead of Placement
+#  PlacementRule instead of Placement
 #apiVersion: cluster.open-cluster-management.io/v1beta1
 #kind: Placement
 #metadata:
@@ -90,10 +89,7 @@ metadata:
   namespace: acm-policies
 spec:
   clusterSet: hub
-
-
 ---
-
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
 metadata:
@@ -107,36 +103,4 @@ spec:
         labelSelector:
           matchExpressions:
             - {key: name, operator: In, values: ["local-cluster"]}
-
-
-
-#apiVersion: cluster.open-cluster-management.io/v1beta1
-#kind: Placement
-#metadata:
-#  name: main-policy-placement
-#  namespace: acm-policies
-#spec:
-#  numberOfClusters: 1
-#  clusterSets:
-#    - hub
-#  predicates:
-#    - requiredClusterSelector:
-#        labelSelector:
-#          matchLabels:
-#            name: local-cluster
-#
-# Trying PlacementRule instead of Placement - this works for main, but not when adding policyGenerator
-#apiVersion: apps.open-cluster-management.io/v1
-#kind: PlacementRule
-#metadata:
-#  labels:
-#    app: main-policy
-#  name: main-policy-placement
-#  namespace: acm-policies
-#spec:
-#  clusterSelector:
-#    matchLabels:
-#      'local-cluster': 'true'
-
-
-
+            
