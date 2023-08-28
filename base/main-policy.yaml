@@ -89,6 +89,8 @@ metadata:
   name: placement-default
   namespace: acm-policies
 spec:
+  clusterSets:
+    - hub
   predicates:
   - requiredClusterSelector:
       labelSelector:
