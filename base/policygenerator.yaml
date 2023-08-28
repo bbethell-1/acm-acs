@@ -8,9 +8,6 @@ metadata:
 ###############################################
 policyDefaults:
   namespace: acm-policies
-  evaluationInterval:
-    compliant: 6h
-    noncompliant: 600s  
 # copyPolicyMetadata requires >= 2.8 version of the image for policy generator multicluster-operators-subscription in ArgoCD
 # https://git.delta.com/openshift/mt-configs/openshift-gitops-argocd/-/blob/v1.3/templates/argocd.yaml
 ##  copyPolicyMetadata: false
@@ -80,6 +77,9 @@ policies:
     remediationAction: "inform"
     severity: "high"
     complianceType: "mustnothave"
+    evaluationInterval:
+      compliant: 6h
+      noncompliant: 600s  
     policySets:
       - cluster-health
 
