@@ -8,6 +8,9 @@ metadata:
 ###############################################
 policyDefaults:
   namespace: acm-policies
+  evaluationInterval:
+    compliant: 6h
+    noncompliant: 600s  
 # copyPolicyMetadata requires >= 2.8 version of the image for policy generator multicluster-operators-subscription in ArgoCD
 # https://git.delta.com/openshift/mt-configs/openshift-gitops-argocd/-/blob/v1.3/templates/argocd.yaml
 ##  copyPolicyMetadata: false
@@ -20,18 +23,18 @@ placementBindingDefaults:
 
 ###############################################
 policySets:
-#  - name: hub
-#    description: Policies to be executed on the RHACM hub cluster
-#    placement:
-#      placementRulePath: input/placementrule-hub.yaml
-#    policies:
+  - name: hub
+    description: Policies to be executed on the RHACM hub cluster
+    placement:
+      placementRulePath: input/placement-hub.yaml
+    policies:
 #      - gatekeeper-install
 #      - gatekeeper-readiness-probe-not-set
 #      - gatekeeper-liveness-probe-not-set
 #      - gatekeeper-latest-tag
-      #- kyverno-require-requests-limits
-      #- kyverno-latest-tag
-      #- kyverno-enforce-resources-as-ratio-memory
+#      - kyverno-require-requests-limits
+#      - kyverno-latest-tag
+#      - kyverno-enforce-resources-as-ratio-memory
 
 #  - name: exclude-specified-clusters
 #    description: Policies to be executed on all except the excluded clusters
@@ -77,9 +80,6 @@ policies:
     remediationAction: "inform"
     severity: "high"
     complianceType: "mustnothave"
-    evaluationInterval:
-      compliant: 6h
-      noncompliant: 600s
     policySets:
       - cluster-health
 
@@ -89,9 +89,6 @@ policies:
     remediationAction: "inform"
     severity: "high"
     complianceType: "mustnothave"
-    evaluationInterval:
-      compliant: 6h
-      noncompliant: 600s
     policySets:
       - cluster-health
 
@@ -106,9 +103,6 @@ policies:
       include:
         - "*"
     complianceType: "mustnothave"
-    evaluationInterval:
-      compliant: 6h
-      noncompliant: 600s
     policySets:
       - cluster-health
 
@@ -122,9 +116,6 @@ policies:
         - "kube-*"
       include:
         - "*"
-    evaluationInterval:
-      compliant: 6h
-      noncompliant: 600s
     complianceType: "mustnothave"
     policySets:
       - cluster-health
@@ -138,9 +129,6 @@ policies:
       include:
         - "*"
     complianceType: "mustnothave" # "musthave" or "mustnothave" or "mustonlyhave"
-    evaluationInterval:
-      compliant: 6h
-      noncompliant: 600s
     policySets:
       - cluster-health
 
@@ -150,9 +138,6 @@ policies:
 #    remediationAction: enforce
 #    severity: "low"
 #    complianceType: "musthave" # "musthave" or "mustnothave" or "mustonlyhave"
-#    evaluationInterval:
-#      compliant: 6h
-#      noncompliant: 600s
 #    policySets:
 #      - cluster-health
 
@@ -168,9 +153,6 @@ policies:
 #    categories:
 #      - "PaaS Internal"
 #    complianceType: "musthave" # "musthave" or "mustnothave" or "mustonlyhave"
-##    evaluationInterval:
-##      compliant: 6h
-##      noncompliant: 600s
 ##    policyAnnotations:
 ##      test-annotation: test
 #    policySets:
@@ -185,9 +167,6 @@ policies:
 #      include:
 #        - "openshift-gitops"
 #    complianceType: "musthave" # "musthave" or "mustnothave" or "mustonlyhave"
-#    evaluationInterval:
-#      compliant: 6h
-#      noncompliant: 600s
 #    policySets:
 #      - cluster-health
 #
@@ -198,9 +177,6 @@ policies:
 #    remediationAction: inform
 #    severity: "low"
 #    complianceType: "musthave" # "musthave" or "mustnothave" or "mustonlyhave"
-#    evaluationInterval:
-#      compliant: 6h
-#      noncompliant: 600s
 #    policySets:
 #      - cluster-health
 #
@@ -210,9 +186,6 @@ policies:
 #    remediationAction: inform
 #    severity: "low"
 #    complianceType: "musthave" # "musthave" or "mustnothave" or "mustonlyhave"
-#    evaluationInterval:
-#      compliant: 6h
-#      noncompliant: 600s
 #    policySets:
 #      - cluster-health 
 #
@@ -283,14 +256,14 @@ policies:
 ################################################
 ## Hub policies
 ################################################
-#  - name: web-terminal
-#    manifests:
-#      - path: policy-generator-policies/web-terminal.yaml
-#    remediationAction: "enforce"
-#    severity: "low"
-#    complianceType: "musthave"
-#    policySets:
-#      - hub
+  - name: web-terminal
+    manifests:
+      - path: policy-generator-policies/web-terminal.yaml
+    remediationAction: "enforce"
+    severity: "low"
+    complianceType: "musthave"
+    policySets:
+      - hub
 #
 #  - name: discovery-config
 #    manifests:
