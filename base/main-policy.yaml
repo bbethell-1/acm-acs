@@ -56,9 +56,10 @@ spec:
   channel: ggithubcom-mmwillingham-acm-acs-ns/ggithubcom-mmwillingham-acm-acs
   placement:
     placementRef:
-      name: main-policy-placement
-      #kind: Placement
-      kind: PlacementRule
+      #name: main-policy-placement
+      name: placement-default
+      kind: Placement
+      #kind: PlacementRule
 posthooks: {}
 prehooks: {}
 ---
@@ -82,19 +83,30 @@ prehooks: {}
 #              - OpenShift
 ##  clusterSets:
 ##    - hub
-#
-# Trying PlacementRule instead of Placement
-apiVersion: apps.open-cluster-management.io/v1
-kind: PlacementRule
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
 metadata:
-  labels:
-    app: main-policy
-  name: main-policy-placement
-  namespace: acm-policies
+  name: placement-default
+  namespace: policies
 spec:
-  clusterSelector:
-    matchLabels:
-      'local-cluster': 'true'
+  predicates:
+  - requiredClusterSelector:
+      labelSelector:
+        matchExpressions:
+          - {key: name, operator: In, values: ["local-cluster"]}
+#
+# Trying PlacementRule instead of Placement - this works for main, but not when adding policyGenerator
+#apiVersion: apps.open-cluster-management.io/v1
+#kind: PlacementRule
+#metadata:
+#  labels:
+#    app: main-policy
+#  name: main-policy-placement
+#  namespace: acm-policies
+#spec:
+#  clusterSelector:
+#    matchLabels:
+#      'local-cluster': 'true'
 
 
 
