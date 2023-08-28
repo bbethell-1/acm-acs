@@ -3,6 +3,13 @@ kind: Application
 metadata:
   name: main-policy
   namespace: acm-policies
+  annotations:
+    apps.open-cluster-management.io/deployables: ''
+    apps.open-cluster-management.io/subscriptions: acm-policies/main-policy-subscription-1
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"app.k8s.io/v1beta1","kind":"Application","metadata":{"annotations":{},"name":"main-policy","namespace":"acm-policies"},"spec":{"componentKinds":[{"group":"apps.open-cluster-management.io","kind":"Subscription"}],"descriptor":{},"selector":{"matchExpressions":[{"key":"app","operator":"In","values":["main-policy"]}]}}}
+    open-cluster-management.io/user-group: c3lzdGVtOmF1dGhlbnRpY2F0ZWQ6b2F1dGgsc3lzdGVtOmF1dGhlbnRpY2F0ZWQ=
+    open-cluster-management.io/user-identity: a3ViZWFkbWlu
 spec:
   componentKinds:
     - group: apps.open-cluster-management.io
@@ -14,6 +21,23 @@ spec:
         operator: In
         values:
           - main-policy
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ggithubcom-mmwillingham-acm-acs-ns
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  name: ggithubcom-mmwillingham-acm-acs
+  namespace: ggithubcom-mmwillingham-acm-acs-ns
+  annotations:
+    apps.open-cluster-management.io/reconcile-rate: medium
+  selfLink:
+spec:
+  type: Git
+  pathname: https://github.com/mmwillingham/acm-acs.git
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: Subscription
@@ -33,24 +57,44 @@ spec:
   placement:
     placementRef:
       name: main-policy-placement
-      kind: Placement
+      #kind: Placement
+      kind: PlacementRule
 posthooks: {}
 prehooks: {}
 ---
-apiVersion: cluster.open-cluster-management.io/v1beta1
-kind: Placement
+# Trying PlacementRule instead of Placement
+#apiVersion: cluster.open-cluster-management.io/v1beta1
+#kind: Placement
+#metadata:
+#  name: main-policy-placement
+#  namespace: acm-policies
+#  labels:
+#    app: main-policy
+#  selfLink:
+#spec:
+#  predicates:
+#   - requiredClusterSelector:
+#        labelSelector:
+#          matchExpressions:
+#            - key: vendor
+#              operator: In
+#              values:
+#              - OpenShift
+##  clusterSets:
+##    - hub
+#
+# Trying PlacementRule instead of Placement
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
 metadata:
-  name: main-policy-placement
-  namespace: acm-policies
   labels:
     app: main-policy
-  selfLink:
+  name: main-policy-placement
+  namespace: acm-policies
 spec:
-  predicates:
-    - requiredClusterSelector:
-        labelSelector:
-          matchExpressions:
-  clusterSets:
-    - hub
+  clusterSelector:
+    matchLabels:
+      'local-cluster': 'true'
+
 
 
