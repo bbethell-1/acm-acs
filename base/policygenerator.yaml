@@ -262,8 +262,9 @@ policies:
     remediationAction: "enforce"
     severity: "low"
     complianceType: "musthave"
-#    policySets:
+    policySets:
 #      - hub
+      - cluster-health
 #
 #  - name: discovery-config
 #    manifests:
