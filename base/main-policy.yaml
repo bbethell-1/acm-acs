@@ -56,8 +56,8 @@ spec:
   channel: ggithubcom-mmwillingham-acm-acs-ns/ggithubcom-mmwillingham-acm-acs
   placement:
     placementRef:
-      #name: main-policy-placement
-      name: placement-default
+      name: main-policy-placement
+      #name: placement-default
       kind: Placement
       #kind: PlacementRule
 posthooks: {}
@@ -86,7 +86,7 @@ prehooks: {}
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
 metadata:
-  name: placement-default
+  name: main-policy-placement
   namespace: acm-policies
 spec:
   clusterSets:
