@@ -4,5 +4,5 @@ resources:
 - policies/martin-namespace.yaml
 
 
-#generators:
-# - policygenerator.yaml
+generators:
+ - policygenerator.yaml
