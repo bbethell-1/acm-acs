@@ -91,11 +91,11 @@ metadata:
 spec:
   clusterSets:
     - hub
-#  predicates:
-#    - requiredClusterSelector:
-#        labelSelector:
-#          matchExpressions:
-#            - {key: name, operator: In, values: ["local-cluster"]}
+  predicates:
+    - requiredClusterSelector:
+        labelSelector:
+          matchExpressions:
+            - {key: name, operator: In, values: ["local-cluster"]}
 
 
 
