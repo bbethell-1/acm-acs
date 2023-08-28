@@ -10,7 +10,7 @@ policyDefaults:
   namespace: acm-policies
 # copyPolicyMetadata requires >= 2.8 version of the image for policy generator multicluster-operators-subscription in ArgoCD
 # https://git.delta.com/openshift/mt-configs/openshift-gitops-argocd/-/blob/v1.3/templates/argocd.yaml
-  copyPolicyMetadata: false
+##  copyPolicyMetadata: false
   placement:
 #    name: "default-placement"
     placementRulePath: input/placementrule-default.yaml
