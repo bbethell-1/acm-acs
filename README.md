@@ -42,7 +42,8 @@ oc apply -f main-policy.yaml
 
 ### Download PolicyGenerator to ~/Downloads
 #### https://github.com/open-cluster-management-io/policy-generator-plugin/releases
-### Install go
+
+### Install PolicyGenerator
 
 
 ```bash
