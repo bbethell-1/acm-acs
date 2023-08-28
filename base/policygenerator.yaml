@@ -22,12 +22,12 @@ placementBindingDefaults:
   name: default-placement-binding
 
 ###############################################
-policySets:
-  - name: hub
-    description: Policies to be executed on the RHACM hub cluster
-    placement:
-      placementRulePath: input/placement-hub.yaml
-    policies:
+#policySets:
+#  - name: hub
+#    description: Policies to be executed on the RHACM hub cluster
+#    placement:
+#      placementRulePath: input/placement-hub.yaml
+#    policies:
 #      - gatekeeper-install
 #      - gatekeeper-readiness-probe-not-set
 #      - gatekeeper-liveness-probe-not-set
@@ -256,14 +256,14 @@ policies:
 ################################################
 ## Hub policies
 ################################################
-  - name: web-terminal
-    manifests:
-      - path: policy-generator-policies/web-terminal.yaml
-    remediationAction: "enforce"
-    severity: "low"
-    complianceType: "musthave"
-    policySets:
-      - hub
+#  - name: web-terminal
+#    manifests:
+#      - path: policy-generator-policies/web-terminal.yaml
+#    remediationAction: "enforce"
+#    severity: "low"
+#    complianceType: "musthave"
+#    policySets:
+#      - hub
 #
 #  - name: discovery-config
 #    manifests:
