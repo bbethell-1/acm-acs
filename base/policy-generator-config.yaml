@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: PolicyGenerator
 metadata:
-  name: config-data-policies
+  name: policy-generator-config
 
 ###############################################
 # Default values
@@ -19,11 +19,11 @@ placementBindingDefaults:
 
 ###############################################
 policySets:
-  - name: hub
-    description: Policies to be executed on the RHACM hub cluster
-    placement:
-      placementRulePath: input/placementrule-hub.yaml
-    policies:
+#  - name: hub
+#    description: Policies to be executed on the RHACM hub cluster
+#    placement:
+#      placementRulePath: input/placementrule-hub.yaml
+#    policies:
 #      - gatekeeper-install
 #      - gatekeeper-readiness-probe-not-set
 #      - gatekeeper-liveness-probe-not-set
