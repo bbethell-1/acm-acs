@@ -5,4 +5,4 @@ resources:
 
 
 generators:
- - policy-generator-config.yaml
+ - policygenerator.yaml

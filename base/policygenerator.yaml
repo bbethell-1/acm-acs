@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: PolicyGenerator
 metadata:
-  name: policy-generator-config
+  name: policygenerator-config
 
 ###############################################
 # Default values
@@ -13,7 +13,8 @@ policyDefaults:
 ##  copyPolicyMetadata: false
   placement:
 #    name: "default-placement"
-    placementRulePath: input/placementrule-default.yaml
+#    placementRulePath: input/placementrule-default.yaml
+    placementRulePath: input/placement-default.yaml
 placementBindingDefaults:
   name: default-placement-binding
 
