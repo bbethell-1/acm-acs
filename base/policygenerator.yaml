@@ -256,6 +256,30 @@ policies:
 ################################################
 ## Hub policies
 ################################################
+  # NOTE for web-terminal. If installing on CRC, you may get an error in the operator and in DevWorkspaces (which was automatically installed). If so, follow this tech note
+  # https://access.redhat.com/solutions/6992396
+  # oc edit crd devworkspaces.workspace.devfile.io
+  # FROM
+  #   conversion:
+  #   strategy: Webhook                                  //Change Webhook to None
+  #   webhook:                                           //Remove these lines below strategy
+  #     clientConfig:
+  #       caBundle: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  #       service:
+  #         name: devworkspace-controller-manager-service
+  #         namespace: openshift-operators
+  #         path: /convert
+  #         port: 443
+  #     conversionReviewVersions:
+  #     - v1
+
+  # TO
+  #   spec:
+  #   conversion:
+  #     strategy: None
+
+  # Then uninstall DevWorkspaces operator and reinstall
+
   - name: web-terminal
     manifests:
       - path: policy-generator-policies/web-terminal.yaml
