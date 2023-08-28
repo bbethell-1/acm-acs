@@ -20,10 +20,10 @@ placementBindingDefaults:
 
 ###############################################
 policySets:
-  - name: hub
-    description: Policies to be executed on the RHACM hub cluster
-    placement:
-      placementRulePath: input/placement-hub.yaml
+#  - name: hub
+#    description: Policies to be executed on the RHACM hub cluster
+#    placement:
+#      placementRulePath: input/placement-hub.yaml
 #    policies:
 #      - gatekeeper-install
 #      - gatekeeper-readiness-probe-not-set
@@ -262,8 +262,8 @@ policies:
     remediationAction: "enforce"
     severity: "low"
     complianceType: "musthave"
-    policySets:
-      - hub
+#    policySets:
+#      - hub
 #
 #  - name: discovery-config
 #    manifests:
