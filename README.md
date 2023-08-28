@@ -32,6 +32,8 @@ oc new-project acm-policies
 oc apply -f main-policy.yaml
 ```
 
+
+## The following steps are optional.
 ## For policy generator - if using native ACM application, no need to enable policyGenerator
 ### Test at cli - follow these steps (examples below)
 #### https://github.com/open-cluster-management-io/policy-generator-plugin/tree/main
