@@ -62,7 +62,7 @@ spec:
 posthooks: {}
 prehooks: {}
 ---
-#  PlacementRule instead of Placement
+#  PlacementRule example instead of Placement
 #apiVersion: cluster.open-cluster-management.io/v1beta1
 #kind: Placement
 #metadata:
@@ -103,4 +103,3 @@ spec:
         labelSelector:
           matchExpressions:
             - {key: name, operator: In, values: ["local-cluster"]}
-            
