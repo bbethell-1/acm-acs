@@ -8,7 +8,7 @@ git clone https://github.com/mmwillingham/acm-acs.git
 ## To install ACM on hub cluster
 ## (Check version of ACM in subscription within the file installhub.sh)
 ```bash
-cd acm-acs/prereqs
+cd acm-acs/install-acm
 . ./installhub.sh
 ```
 ## Create clusterset for hub
