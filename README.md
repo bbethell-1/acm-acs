@@ -35,7 +35,7 @@ oc new-project acm-policies
 
 ## Create ACM application to run policies
 ```bash
-oc apply -f ../main-policy.yaml
+oc apply -f ../base/main-policy.yaml
 ```
 
 
