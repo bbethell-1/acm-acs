@@ -1,4 +1,10 @@
 # Prereqs to be run from CLI
+## clone git repo
+```bash
+mkdir git
+cd git
+git clone https://github.com/mmwillingham/acm-acs.git
+```
 ## To install ACM on hub cluster
 ## (Check version of ACM in subscription within the file installhub.sh)
 ```bash
