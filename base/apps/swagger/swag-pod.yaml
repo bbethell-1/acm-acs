@@ -1,24 +1,24 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: {{ .Values.name }}
+  name: swagger
   labels:
-    app: {{ .Values.app }}
-    owner: {{ .Values.owner }}
-    vendor: {{ .Values.vendor }}    
+    app: swagger-openshift
+    owner: sbraman
+    vendor: stp    
 spec:
-  restartPolicy: {{ .Values.restartPolicy }}
+  restartPolicy: Always
   containers:
-  - name: {{ .Values.containerName }}
-    image: {{ .Values.containerImage }}
-    imagePullPolicy: {{ .Values.imagePullPolicy }}
+  - name: swagger
+    image: "quay.io/sbraman/swagger-openshift:v1"
+    imagePullPolicy: Always
     resources:
       requests:
-        memory: {{ .Values.containerRequestsMemory }}
-        cpu: {{ .Values.containerRequestsCpu }}
+        memory: "100Mi"
+        cpu: "200m"
       limits:
-        memory: {{ .Values.containerLimitsMemory }}
-        cpu: {{ .Values.containerLimitsCpu }}
+        memory: "200Mi"
+        cpu: "300m"
     env:
     - name: BASE_URL
       value: "/swagger" 
@@ -26,3 +26,5 @@ spec:
       value: "/ocp-4-11-0.json"
     ports:
     - containerPort: 8080
+
+
