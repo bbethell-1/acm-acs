@@ -1,4 +1,5 @@
-# Prereqs to be run from CLI
+# Install ACM on hub cluster
+## Prereqs to be run from CLI
 ## clone git repo
 ```bash
 mkdir ~/git
@@ -26,7 +27,7 @@ oc apply -f install-acm/create-clusterset-hub.yaml
 oc apply -f install-acm/patch-subscription-admin.yaml
 ```
 
-# Now create the application
+# Now create the ACM application subscription
 
 ## Create acm-policies namespace
 ```bash
