@@ -2,6 +2,9 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: swagger
+  labels:
+    app: swagger
+    owner: sbraman
 spec:  
   path: /swagger
   to:

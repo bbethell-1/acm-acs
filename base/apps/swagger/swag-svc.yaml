@@ -3,12 +3,12 @@ kind: Service
 metadata:
   name: swagger-service  
   labels:
-    app: swagger-openshift
+    app: swagger
     owner: sbraman
 spec:
   type: ClusterIP
   selector:
-    app: swagger-openshift
+    app: swagger
   ports:
   - name: swagger
     protocol: TCP
