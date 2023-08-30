@@ -19,7 +19,7 @@ oc apply -f install-acm/create-clusterset-hub.yaml
 
 ## Assign new clusterset to hub cluster
 ```bash
-. install-acm/clusterset-label-hub-local-cluster.sh
+oc label --overwrite managedclusters.cluster.open-cluster-management.io local-cluster cluster.open-cluster-management.io/clusterset=hub
 ```
 
 ## Add kubeadmin (and other desired users) to subscription-admin cluster-role-binding
