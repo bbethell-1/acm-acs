@@ -9,14 +9,18 @@
 ```bash
 oc apply -f ../integrate-acm-gitops/managedclustersetbinding-hub-openshift-gitops.yaml
 ```
-### Step 3 - Create placement in the namespace where gitops was installed, normally openshift-gitops
+### Step 4 - Install gitops operator
+```bash
+oc apply -f ../integrate-acm-gitops/gitops-sub.yaml
+```
+
+### Step 4 - Create placement in the namespace where gitops was installed, normally openshift-gitops
 ### NOTE: This placement has a spec for clusterSets that is not in the documentation. This is because of this issue:
 ### https://issues.redhat.com/browse/ACM-6270
 ```bash
 oc apply -f ../placement-hub-gitops.yaml
 ```
-
-### Step 4 -  Create GitOpsCluster CRD
+### Step 5 -  Create GitOpsCluster CRD
 ```bash
 oc apply -f ../gitopscluster.yaml
 ```
