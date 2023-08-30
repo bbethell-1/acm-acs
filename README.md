@@ -29,7 +29,7 @@ oc apply -f install-acm/patch-subscription-admin.yaml
 # Now create the application
 
 ## Create acm-policies namespace
-```
+```bash
 oc new-project acm-policies
 ```
 
