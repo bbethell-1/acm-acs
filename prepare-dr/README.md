@@ -3,6 +3,8 @@
 #### https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.8/html-single/business_continuity/index
 #### https://github.com/stolostron/cluster-backup-operator
 #### https://cloud.redhat.com/blog/backup-and-restore-hub-clusters-with-red-hat-advanced-cluster-management-for-kubernetes
+#### https://github.com/open-cluster-management-io/policy-collection/tree/main/community/CM-Configuration-Management/acm-app-pv-backup
+
 
 ### Assumes ACM is installed on both primary and backup clusters - IN THE SAME NAMESPACES
 ### All operators installed on primary must also be installed on backup
