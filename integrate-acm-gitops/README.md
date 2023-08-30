@@ -7,22 +7,22 @@
 
 ### Step 2 - Create managed cluster set binding to the namespace where gitops was installed, normally openshift-gitops
 ```bash
-oc apply -f ../integrate-acm-gitops/managedclustersetbinding-hub-openshift-gitops.yaml
+oc apply -f integrate-acm-gitops/managedclustersetbinding-hub-openshift-gitops.yaml
 ```
 ### Step 4 - Install gitops operator
 ```bash
-oc apply -f ../integrate-acm-gitops/gitops-sub.yaml
+oc apply -f integrate-acm-gitops/gitops-sub.yaml
 ```
 
 ### Step 4 - Create placement in the namespace where gitops was installed, normally openshift-gitops
 ### NOTE: This placement has a spec for clusterSets that is not in the documentation. This is because of this issue:
 ### https://issues.redhat.com/browse/ACM-6270
 ```bash
-oc apply -f ../placement-hub-gitops.yaml
+oc apply -f placement-hub-gitops.yaml
 ```
 ### Step 5 -  Create GitOpsCluster CRD
 ```bash
-oc apply -f ../gitopscluster.yaml
+oc apply -f gitopscluster.yaml
 ```
 
 ### Step 6 - Enable PolicyGenerator in ArgoCD (This assumes you installed it in previous steps)
