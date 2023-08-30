@@ -24,3 +24,11 @@ oc apply -f ../placement-hub-gitops.yaml
 ```bash
 oc apply -f ../gitopscluster.yaml
 ```
+
+### Step 6 - Enable PolicyGenerator in ArgoCD (This assumes you installed it in previous steps)
+#### https://cloud.redhat.com/blog/generating-governance-policies-using-kustomize-and-gitops
+```bash
+oc -n openshift-gitops patch argocd openshift-gitops --type merge --patch "$(curl https://raw.githubusercontent.com/stolostron/grc-policy-generator-blog/main/openshift-gitops/argocd-patch.yaml)"
+oc apply -f https://raw.githubusercontent.com/open-cluster-management/grc-policy-generator-blog/main/openshift-gitops/cluster-role.yaml
+```
+

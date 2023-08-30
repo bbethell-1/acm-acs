@@ -1,29 +1,29 @@
 # Prereqs to be run from CLI
 ## clone git repo
 ```bash
-mkdir git
-cd git
+mkdir ~/git
+cd ~/git
 git clone https://github.com/mmwillingham/acm-acs.git
+cd acm-acs
 ```
 ## To install ACM on hub cluster
 ## (Check version of ACM in subscription within the file installhub.sh)
 ```bash
-cd acm-acs/install-acm
-. ./installhub.sh
+. install-acm/installhub.sh
 ```
 ## Create clusterset for hub
 ```bash
-oc apply -f create-clusterset-hub.yaml
+oc apply -f install-acm/create-clusterset-hub.yaml
 ```
 
 ## Assign new clusterset to hub cluster
 ```bash
-. ./clusterset-label-hub-local-cluster.sh
+. install-acm/clusterset-label-hub-local-cluster.sh
 ```
 
 ## Add kubeadmin (and other desired users) to subscription-admin cluster-role-binding
 ```bash
-oc apply -f patch-subscription-admin.yaml
+oc apply -f install-acm/patch-subscription-admin.yaml
 ```
 
 # Now create the application
@@ -35,7 +35,7 @@ oc new-project acm-policies
 
 ## Create ACM application to run policies
 ```bash
-oc apply -f ../base/main-policy.yaml
+oc apply -f base/main-policy.yaml
 ```
 
 
@@ -50,8 +50,6 @@ oc apply -f ../base/main-policy.yaml
 #### https://github.com/open-cluster-management-io/policy-generator-plugin/releases
 
 ### Install PolicyGenerator
-
-
 ```bash
 mkdir -p ${HOME}/.config/kustomize/plugin/policy.open-cluster-management.io/v1/policygenerator
 chmod +x ~/Downloads/linux-amd64-PolicyGenerator
@@ -63,19 +61,10 @@ go install open-cluster-management.io/policy-generator-plugin/cmd/PolicyGenerato
 
 ### Test at CLI - two methods
 #### As a plugin
-cd ../base
+cd base
 kustomize build --enable-alpha-plugins
 
 #### Directly at a policyGenerator config
 PolicyGenerator policygenerator.yaml
-
-### For ArgoCD gitops, you need to enable policyGenerator:
-#### https://cloud.redhat.com/blog/generating-governance-policies-using-kustomize-and-gitops
-#### Scroll down or search for "INTEGRATING WITH OPENSHIFT GITOPS (ARGOCD)"
-
-```bash
-oc -n openshift-gitops patch argocd openshift-gitops --type merge --patch "$(curl https://raw.githubusercontent.com/stolostron/grc-policy-generator-blog/main/openshift-gitops/argocd-patch.yaml)"
-oc apply -f https://raw.githubusercontent.com/open-cluster-management/grc-policy-generator-blog/main/openshift-gitops/cluster-role.yaml
-```
 
 
