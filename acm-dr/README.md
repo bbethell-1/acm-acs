@@ -14,8 +14,6 @@
 #### example: Ansible Automation Platform, Red Hat OpenShift GitOps, cert-manager
 
 ## Steps
-### Configure cloud storage
-#### Create default secret for the cloud storage. Must be created in the OADP operator namespace.
 ### Active and Passive clusters
 #### Install backup and restore operator and set cluster-backup to true
 ### Passive cluster
@@ -37,24 +35,25 @@ sudo ./aws/install
 # Test
 aws --version
 ```
-## Create bucket
-## Set the BUCKET variable:
+
+## Create bucket and access to it
+### Set the BUCKET variable:
 ```bash
 BUCKET=rhacm-dr-test-mmw
 ```
-## Set the REGION variable:
+### Set the REGION variable:
 ```bash
 REGION=us-east-2
 ```
-## Create an AWS S3 bucket:
+### Create an AWS S3 bucket:
 ```bash
 aws s3api create-bucket --bucket $BUCKET --region $REGION --create-bucket-configuration LocationConstraint=$REGION
 ```
-## Create an IAM user:
+#v# Create an IAM user:
 ```bash
 aws iam create-user --user-name velero
 ```
-## Create a velero-policy.json file:
+### Create a velero-policy.json file:
 ```bash
 cat > velero-policy.json <<EOF
 {
@@ -101,28 +100,30 @@ cat > velero-policy.json <<EOF
 EOF
 ```
 
-## Attach the policies to give the velero user the minimum necessary permissions:
+### Attach the policies to give the velero user the minimum necessary permissions:
 ```bash
 aws iam put-user-policy --user-name velero --policy-name velero --policy-document file://velero-policy.json
 ```
-## Create an access key for the velero user:
-
-
-## List access key value just created
+### Create an access key for the velero user:
 ```bash
+# NOTE. The first command creates the access key and stores the secret in the variable.
 AWS_SECRET_ACCESS_KEY=$(aws iam create-access-key --user-name velero --output text | awk '{print $4}')
 AWS_ACCESS_KEY_ID=$(aws iam list-access-keys --user-name velero --output text | tail -1 | awk '{print $2}')
 echo $AWS_SECRET_ACCESS_KEY
 echo $AWS_ACCESS_KEY_ID
 ```
 
-# If you have an issue, you can delete the access key and recreate showing the full output:
+### List access key value just created (NOTE, you cannot get the SECRET_ACCESS_KEY after the initial creation)
+```bash
+aws iam list-access-keys --user-name velero
+```
+### If you have an issue, you can delete the access key and recreate showing the full output:
 ```bash
 aws iam list-access-keys --user-name velero
 aws iam delete-access-keys --access-key-id <ACCESS KEY ID> --user-name velero
 aws iam create-access-key --user-name velero
 ```
-## Example output
+### Example output
 {
   "AccessKey": {
         "UserName": "velero",
@@ -132,7 +133,7 @@ aws iam create-access-key --user-name velero
         "AccessKeyId": <AWS_ACCESS_KEY_ID>
   }
 }
-## Actual
+### Actual
 {
     "AccessKey": {
         "UserName": "velero",
@@ -143,8 +144,7 @@ aws iam create-access-key --user-name velero
     }
 }
 
-
-## Create a credentials-velero file:
+### Create a credentials-velero file:
 ```bash
 cat << EOF > ./credentials-velero
 [default]
@@ -153,13 +153,16 @@ aws_secret_access_key=$AWS_SECRET_ACCESS_KEY
 EOF
 ```
 
-## Create a Secret with the default name:
+### Create a Secret with the default name:
 ```bash
 # oc create secret generic cloud-credentials -n openshift-adp --from-file cloud=credentials-velero
 oc create secret generic cloud-credentials -n open-cluster-management-backup --from-file cloud=credentials-velero
 ```
 
-
+## Create DataProtectionApplication CR
+```bash
+oc apply -f acm-dr/dpa.yaml
+```
 
 
 # OLD
