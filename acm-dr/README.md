@@ -162,11 +162,51 @@ EOF
 oc create secret generic cloud-credentials -n open-cluster-management-backup --from-file cloud=credentials-velero
 ```
 
-## Create DataProtectionApplication CR
+### Create DataProtectionApplication CR
 ```bash
 oc apply -f acm-dr/dpa.yaml
 ```
 
+### Verify success
+```bash
+oc get all -n open-cluster-management-backup
+```
+### Output should be similar
+```
+[rosa@bastion acm-acs]$ oc get pods -n open-cluster-management-backup
+NAME                                                 READY   STATUS    RESTARTS   AGE
+cluster-backup-chart-clusterbackup-5f7568884-k82sz   1/1     Running   0          90m
+cluster-backup-chart-clusterbackup-5f7568884-ssltg   1/1     Running   0          90m
+openshift-adp-controller-manager-544985898c-hksk6    1/1     Running   0          89m
+restic-gwxs9                                         1/1     Running   0          3m2s
+restic-pwfs7                                         1/1     Running   0          3m2s
+velero-759f578c65-nmj2z                              1/1     Running   0          3m2s
+[rosa@bastion acm-acs]$ oc get all -n open-cluster-management-backup
+NAME                                                     READY   STATUS    RESTARTS   AGE
+pod/cluster-backup-chart-clusterbackup-5f7568884-k82sz   1/1     Running   0          90m
+pod/cluster-backup-chart-clusterbackup-5f7568884-ssltg   1/1     Running   0          90m
+pod/openshift-adp-controller-manager-544985898c-hksk6    1/1     Running   0          89m
+pod/restic-gwxs9                                         1/1     Running   0          3m13s
+pod/restic-pwfs7                                         1/1     Running   0          3m13s
+pod/velero-759f578c65-nmj2z                              1/1     Running   0          3m13s
+
+NAME                                                       TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+service/openshift-adp-controller-manager-metrics-service   ClusterIP   172.30.67.227    <none>        8443/TCP   90m
+service/openshift-adp-velero-metrics-svc                   ClusterIP   172.30.137.151   <none>        8085/TCP   3m13s
+
+NAME                    DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+daemonset.apps/restic   2         2         2       2            2           <none>          3m13s
+
+NAME                                                 READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/cluster-backup-chart-clusterbackup   2/2     2            2           90m
+deployment.apps/openshift-adp-controller-manager     1/1     1            1           89m
+deployment.apps/velero                               1/1     1            1           3m13s
+
+NAME                                                           DESIRED   CURRENT   READY   AGE
+replicaset.apps/cluster-backup-chart-clusterbackup-5f7568884   2         2         2       90m
+replicaset.apps/openshift-adp-controller-manager-544985898c    1         1         1       89m
+replicaset.apps/velero-759f578c65                              1         1         1       3m13s
+```
 
 # OLD
 
