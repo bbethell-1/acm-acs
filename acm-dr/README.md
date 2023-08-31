@@ -124,6 +124,7 @@ aws iam delete-access-keys --access-key-id <ACCESS KEY ID> --user-name velero
 aws iam create-access-key --user-name velero
 ```
 ### Example output
+```
 {
   "AccessKey": {
         "UserName": "velero",
@@ -133,7 +134,9 @@ aws iam create-access-key --user-name velero
         "AccessKeyId": <AWS_ACCESS_KEY_ID>
   }
 }
+```
 ### Actual
+```
 {
     "AccessKey": {
         "UserName": "velero",
@@ -143,7 +146,7 @@ aws iam create-access-key --user-name velero
         "CreateDate": "2023-08-31T13:55:34+00:00"
     }
 }
-
+```
 ### Create a credentials-velero file:
 ```bash
 cat << EOF > ./credentials-velero
@@ -166,50 +169,7 @@ oc apply -f acm-dr/dpa.yaml
 
 
 # OLD
-##### Operators > Installed Operators
-Click Create instance under DataProtectionApplication
-Create the Velero instance by selecting configurations using the {ocp-short) console or by using a YAML file as mentioned in the DataProtectionApplication example.
-Set the DataProtectionApplication namespace to open-cluster-management-backup.
-Set the specification (spec:) values appropriately for the DataProtectionApplication resource. Then click Create.
-If you intend on using the default backup storage location, set the following value, default: true in the backupStorageLocations section. View the following DataProtectionApplication resource sample:
-apiVersion: oadp.openshift.io/v1alpha1
-kind: DataProtectionApplication
-metadata:
-  name: dpa-sample
-spec:
-  configuration:
-    velero:
-      defaultPlugins:
-      - openshift
-      - aws
-    restic:
-      enable: true
-  backupLocations:
-    - name: default
-      velero:
-        provider: aws
-        default: true
-        objectStorage:
-          bucket: my-bucket
-          prefix: my-prefix
-        config:
-          region: us-east-1
-          profile: "default"
-        credential:
-          name: cloud-credentials
-          key: cloud
-  snapshotLocations:
-    - name: default
-      velero:
-        provider: aws
-        config:
-          region: us-west-2
-          profile: "default"
 
-### Enable the backup and restore operator
-The cluster backup and restore operator can be enabled when the MultiClusterHub resource is created for the first time. The cluster-backup parameter is set to true. When the operator is enabled, the operator resources are installed.
-
-If the MultiClusterHub resource is already created, you can install or uninstall the cluster backup operator by editing the MultiClusterHub resource. Set cluster-backup to false, if you want to uninstall the cluster backup operator.
 
 ### Restore
 - Shut down the primary cluster.
